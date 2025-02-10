@@ -1,6 +1,6 @@
 # Calculate num_seqs
 num_seqs=$(grep -c '>' $1)
-total_length=$(grep -v '>' $1 | wc -c)
+total_length=$(awk '/^>/ {next} {total_length += length $0} END{print total_length}' $1)
 longest_seq=$(awk '/^>/ {if (seqlen) {print seqlen} (seqlen = 0);next} { seqlen += length $0} END{print seqlen}' "$1" | sort -n | tail -n 1)
 shortest_seq=$(awk '/^>/ {if (seqlen) {print seqlen} (seqlen = 0); next} { seqlen += length $0} END{print seqlen}' $1 | sort -n | head -n 1)
 avg_length=$(($total_length/$num_seqs))
