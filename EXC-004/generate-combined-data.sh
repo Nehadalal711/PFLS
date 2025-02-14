@@ -72,6 +72,8 @@ do
         # Copy the file directly to COMBINED-DATA
         cp "$fasta_file" "$COMBINED_DIR/$NEW_NAME"
 
+        sed -i "s/>bin/>${Culture}/g" "$COMBINED_DIR/$NEW_NAME"
+
     done
 done
 echo "YOU ARE GOLDEN :) "
